@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Numeracy Challenges</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 1.5rem;
+        }
+        .container {
+            width: 100%;
+            max-width: 1000px;
+        }
+        .card {
+            background-color: #ffffff;
+            border-radius: 2rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            text-align: center;
+            animation: fadeIn 0.8s ease-out;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .card-header {
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 1rem;
+            margin-bottom: 1rem;
+        }
+        .message-box {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            font-weight: bold;
+            display: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            animation: slideIn 0.5s ease-out;
+            transform-origin: top right;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes slideIn {
+            from { transform: scale(0.8) translateY(-20px); opacity: 0; }
+            to { transform: scale(1) translateY(0); opacity: 1; }
+        }
+        .spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            border-left-color: #4a5568;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="selection:bg-indigo-300 selection:text-indigo-900">
+
+    <div class="container flex flex-col items-center">
+        <!-- Daily Message Box -->
+        <div id="messageBox" class="message-box text-sm"></div>
+
+        <h1 class="text-3xl sm:text-4xl font-bold text-gray-800 mb-2">Daily Numeracy Challenges</h1>
+        
+        <!-- Date Display -->
+        <p id="dateDisplay" class="text-md text-indigo-600 mb-8"></p>
+
+        <!-- Main Challenge Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
+            
+            <!-- Section 1: Number -->
+            <div id="section-arithmetic" class="card">
+                <div class="card-header">
+                    <h2 class="text-2xl font-bold text-gray-700">Number</h2>
+                </div>
+                <div class="flex-grow flex flex-col justify-center items-center p-4">
+                    <p id="prompt-arithmetic" class="text-xl sm:text-2xl font-bold text-indigo-800 mb-6"></p>
+                </div>
+                <div class="flex flex-col items-center w-full">
+                    <input type="number" id="answer-arithmetic" class="w-full px-4 py-3 rounded-xl border-2 border-gray-300 focus:outline-none focus:border-indigo-500 transition-colors duration-200 text-center mb-4 text-gray-800 text-lg shadow-sm" placeholder="Your answer">
+                    <button onclick="checkAnswer('arithmetic')" class="w-full bg-indigo-600 text-white px-8 py-3 rounded-xl font-bold text-lg shadow-lg hover:bg-indigo-700 transition-all duration-200 transform hover:scale-105 active:scale-100">Check</button>
+                    <button onclick="getHint('arithmetic')" class="w-full bg-gray-600 text-white px-8 py-3 mt-2 rounded-xl font-bold text-lg shadow-lg hover:bg-gray-700 transition-all duration-200 transform hover:scale-105 active:scale-100">Get a Hint ✨</button>
+                </div>
+                <div id="result-arithmetic" class="mt-4 text-center text-md font-semibold"></div>
+                <div id="hint-arithmetic" class="mt-4 text-left text-sm text-gray-600 italic"></div>
+            </div>
+
+            <!-- Section 2: Fractions and Decimals -->
+            <div id="section-fractions" class="card">
+                <div class="card-header">
+                    <h2 class="text-2xl font-bold text-gray-700">Fractions & Decimals</h2>
+                </div>
+                <div class="flex-grow flex flex-col justify-center items-center p-4">
+                    <p id="prompt-fractions" class="text-xl sm:text-2xl font-bold text-indigo-800 mb-6"></p>
+                </div>
+                <div class="flex flex-col items-center w-full">
+                    <input type="number" id="answer-fractions" class="w-full px-4 py-3 rounded-xl border-2 border-gray-300 focus:outline-none focus:border-indigo-500 transition-colors duration-200 text-center mb-4 text-gray-800 text-lg shadow-sm" placeholder="Your answer">
+                    <button onclick="checkAnswer('fractions')" class="w-full bg-indigo-600 text-white px-8 py-3 rounded-xl font-bold text-lg shadow-lg hover:bg-indigo-700 transition-all duration-200 transform hover:scale-105 active:scale-100">Check</button>
+                    <button onclick="getHint('fractions')" class="w-full bg-gray-600 text-white px-8 py-3 mt-2 rounded-xl font-bold text-lg shadow-lg hover:bg-gray-700 transition-all duration-200 transform hover:scale-105 active:scale-100">Get a Hint ✨</button>
+                </div>
+                <div id="result-fractions" class="mt-4 text-center text-md font-semibold"></div>
+                <div id="hint-fractions" class="mt-4 text-left text-sm text-gray-600 italic"></div>
+            </div>
+
+            <!-- Section 3: Percentages -->
+            <div id="section-percentages" class="card">
+                <div class="card-header">
+                    <h2 class="text-2xl font-bold text-gray-700">Percentages</h2>
+                </div>
+                <div class="flex-grow flex flex-col justify-center items-center p-4">
+                    <p id="prompt-percentages" class="text-xl sm:text-2xl font-bold text-indigo-800 mb-6"></p>
+                </div>
+                <div class="flex flex-col items-center w-full">
+                    <input type="number" id="answer-percentages" class="w-full px-4 py-3 rounded-xl border-2 border-gray-300 focus:outline-none focus:border-indigo-500 transition-colors duration-200 text-center mb-4 text-gray-800 text-lg shadow-sm" placeholder="Your answer">
+                    <button onclick="checkAnswer('percentages')" class="w-full bg-indigo-600 text-white px-8 py-3 rounded-xl font-bold text-lg shadow-lg hover:bg-indigo-700 transition-all duration-200 transform hover:scale-105 active:scale-100">Check</button>
+                    <button onclick="getHint('percentages')" class="w-full bg-gray-600 text-white px-8 py-3 mt-2 rounded-xl font-bold text-lg shadow-lg hover:bg-gray-700 transition-all duration-200 transform hover:scale-105 active:scale-100">Get a Hint ✨</button>
+                </div>
+                <div id="result-percentages" class="mt-4 text-center text-md font-semibold"></div>
+                <div id="hint-percentages" class="mt-4 text-left text-sm text-gray-600 italic"></div>
+            </div>
+
+            <!-- Section 4: Shape -->
+            <div id="section-geometry" class="card">
+                <div class="card-header">
+                    <h2 class="text-2xl font-bold text-gray-700">Shape</h2>
+                </div>
+                <div class="flex-grow flex flex-col justify-center items-center p-4">
+                    <p id="prompt-geometry" class="text-xl sm:text-2xl font-bold text-indigo-800 mb-6"></p>
+                </div>
+                <div class="flex flex-col items-center w-full">
+                    <input type="number" id="answer-geometry" class="w-full px-4 py-3 rounded-xl border-2 border-gray-300 focus:outline-none focus:border-indigo-500 transition-colors duration-200 text-center mb-4 text-gray-800 text-lg shadow-sm" placeholder="Your answer">
+                    <button onclick="checkAnswer('geometry')" class="w-full bg-indigo-600 text-white px-8 py-3 rounded-xl font-bold text-lg shadow-lg hover:bg-indigo-700 transition-all duration-200 transform hover:scale-105 active:scale-100">Ch
